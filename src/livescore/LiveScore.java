@@ -5,7 +5,6 @@
  */
 package livescore;
 
-import java.util.*;
 import java.io.*;
 
 /**
