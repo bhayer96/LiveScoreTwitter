@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package livescore;
 
 import java.io.*;
 
-/**
- *
- * @author baldeephayer
- */
 public class LiveScore {
 
     /*
@@ -63,8 +55,7 @@ public class LiveScore {
     }
 
     public static void main(String[] args) {
-        // TODO code application logic here
-        LiveScore test = new LiveScore();
+        LiveScore bot = new LiveScore();
     }
     
 }
