@@ -15,13 +15,6 @@ public class CS321_readFile
      /** Holds the total number of lines in the Document */
    public static int totalNumOfLines = 0;
 
-   public CS321_readFile()
-   {
-   
-   
-   
-   }
-
    private static void countLines(File file)
    {
                          
