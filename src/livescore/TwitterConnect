@@ -19,7 +19,7 @@ public class TwitterConnect {
 	
 	
 	
-   public static void buildUserFile(String container) throws Exception{
+   public void buildUserFile(String container) throws Exception{
    	
       try{
       	
@@ -30,23 +30,27 @@ public class TwitterConnect {
       	
       	
          JSONObject message_1_create = message_1.getJSONObject("message_create");
-         JSONObject message_target = message_1_create.getJSONObject("target");
+         JSONObject message_target = message_1_create.getJSONObject("target");         //unwraps appropriate JSONObjects
          JSONObject message_data = message_1_create.getJSONObject("message_data");
       	
       	
       	
          String message_1_id = (String)message_1.get("id");
          String message_text = (String)message_data.get("text");
-         String message_sender = (String)message_1_create.get("sender_id");
+         String message_sender = (String)message_1_create.get("sender_id"); //sets appropriate JSON Strings
       	
          System.out.println(message_1_id);
          System.out.println(message_text);
          System.out.println(message_sender);
          
-      	String[] buffer = message_text.split(" "); //splits the message by white spaces.
+      	String[] buffer = message_text.split(" "); //splits the message by white spaces and gets the first index.
       	String team = buffer[0]; 
       	
-      	storeUserFile(message_sender, team);
+      	
+      	//sends data to Baldeep's code
+      	LiveScore bot = new LiveScore();
+      	bot.storeUserFile(message_sender,team);  
+      	
       	
       	
       }
@@ -68,8 +72,9 @@ public class TwitterConnect {
       return tweet;
    }
 	
-	
-   public static String readURL(String webservice) throws Exception 
+
+   
+   public static String readURL(String webservice) throws Exception  //reads in urls
    {
          
       URL oracle = new URL(webservice);
@@ -90,29 +95,6 @@ public class TwitterConnect {
       return result;
          
    }
-	   
-	   
-   public static void main(String[] args) throws Exception {
-      CS321_readFile test = new CS321_readFile();
-      command();
-      buildUserFile(test.loadFile("C:/Users/Nathan Tefera/workspace/Project321/out.txt"));
-   	  
-   	   
-   }
-	 
-	   
-   public static void command(){
-   	   
-   	   
-      Runtime rt = Runtime.getRuntime();
-   	   
-      try{
-         Process pr = rt.exec("cmd /c twurl -X GET /1.1/direct_messages/events/list.json > out.txt");
-         pr.waitFor();
-      }
-      catch(Exception e){
-      	   
-      }
-   }
+   
 }
 
