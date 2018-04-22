@@ -1,6 +1,3 @@
-
-package livescore;
-
 import java.io.*;
 
 public class LiveScore {
