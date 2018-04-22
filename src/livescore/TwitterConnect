@@ -69,7 +69,7 @@ public class TwitterConnect {
    	
    	
       
-      return tweet;
+      return tweet + "\n\n Powered by newsapi.org";
    }
 	
 
