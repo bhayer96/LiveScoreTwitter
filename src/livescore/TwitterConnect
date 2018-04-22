@@ -52,7 +52,7 @@ public class TwitterConnect {
       	
       	//sends data to Baldeep's code
       	LiveScore bot = new LiveScore();
-      	bot.storeUserFile(message_sender,team);  
+      	bot.storeUserFile(message_sender,team);
       	
       	
       	
