@@ -17,7 +17,10 @@ public class TwitterConnect {
    String owner = "LiveScore321";
    String owner_id = "984128983863365632";
 	
+	public TwitterConnect()
+	{
 	
+	}
 	
    public void buildUserFile(String container) throws Exception{
    	
