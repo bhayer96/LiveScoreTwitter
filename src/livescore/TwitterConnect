@@ -23,9 +23,9 @@ public class TwitterConnect {
    	
       try{
       	
-         JSONObject x = JSONObject.fromObject(container);
+         JSONObject x = JSONObject.fromObject(container); //reads in textfile as a JSONObject
       	
-         JSONArray messages = (JSONArray)(x.get("events"));
+         JSONArray messages = (JSONArray)(x.get("events")); 
          JSONObject message_1 = messages.getJSONObject(0);
       	
       	
@@ -62,8 +62,8 @@ public class TwitterConnect {
    	
    }
 	
-   public String buildTweet(String url, String excerpt){
-      String tweet = excerpt.substring(0,150);
+   public String buildTweet(String url, String excerpt){ //builds tweet that David's code will be sending out
+      String tweet = excerpt.substring(0,150); //cuts off past 150 characters
       tweet.concat("... ");
       tweet.concat(url);
    	
@@ -97,4 +97,3 @@ public class TwitterConnect {
    }
    
 }
-
