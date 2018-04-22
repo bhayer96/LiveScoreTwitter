@@ -64,7 +64,7 @@ public class TwitterConnect {
 	
    public String buildTweet(String url, String excerpt){ //builds tweet that David's code will be sending out
       String tweet = excerpt.substring(0,150); //cuts off past 150 characters
-      tweet.concat("... ");
+      tweet.concat("~~~");
       tweet.concat(url);
    	
    	
