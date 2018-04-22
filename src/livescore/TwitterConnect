@@ -1,0 +1,118 @@
+import java.net.*;
+import java.io.*;
+import net.sf.json.*;
+import org.apache.commons.lang.exception.*;
+import java.lang.*;
+
+import java.util.Scanner;
+
+public class TwitterConnect {
+
+   Scanner scan = new Scanner(System.in);
+	
+   String consumer_key = "vqg9L1A1RLJT5yZ6GH1RHc6Bg";
+   String consumer_secret_key = "SUN1VKDhJR8PseynsmywINiVuoJkfcIrefWbdmWhgQJbBLF6v9";
+   String access_key = "O59PWPRqS7XlANA4bYFcyY44XFvxt6W";
+   String acess_secret_key = "63MdTu0HfJ7CJHd5oH171vPNEkE5623aOBACthZkHstvN";
+   String owner = "LiveScore321";
+   String owner_id = "984128983863365632";
+	
+	
+	
+   public static void buildUserFile(String container) throws Exception{
+   	
+      try{
+      	
+         JSONObject x = JSONObject.fromObject(container);
+      	
+         JSONArray messages = (JSONArray)(x.get("events"));
+         JSONObject message_1 = messages.getJSONObject(0);
+      	
+      	
+         JSONObject message_1_create = message_1.getJSONObject("message_create");
+         JSONObject message_target = message_1_create.getJSONObject("target");
+         JSONObject message_data = message_1_create.getJSONObject("message_data");
+      	
+      	
+      	
+         String message_1_id = (String)message_1.get("id");
+         String message_text = (String)message_data.get("text");
+         String message_sender = (String)message_1_create.get("sender_id");
+      	
+         System.out.println(message_1_id);
+         System.out.println(message_text);
+         System.out.println(message_sender);
+         
+      	String[] buffer = message_text.split(" "); //splits the message by white spaces.
+      	String team = buffer[0]; 
+      	
+      	storeUserFile(message_sender, team);
+      	
+      	
+      }
+      catch(Exception e){
+      	
+         System.out.print("Error building user file");
+      	
+      }
+   	
+   }
+	
+   public String buildTweet(String url, String excerpt){
+      String tweet = excerpt.substring(0,150);
+      tweet.concat("... ");
+      tweet.concat(url);
+   	
+   	
+      
+      return tweet;
+   }
+	
+	
+   public static String readURL(String webservice) throws Exception 
+   {
+         
+      URL oracle = new URL(webservice);
+         
+      BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
+      
+      String inputLine;
+      String result = "";
+      
+      while ((inputLine = in.readLine()) != null)
+      {
+         
+         result = result + inputLine;
+         
+      }
+         
+      in.close();
+      return result;
+         
+   }
+	   
+	   
+   public static void main(String[] args) throws Exception {
+      CS321_readFile test = new CS321_readFile();
+      command();
+      buildUserFile(test.loadFile("C:/Users/Nathan Tefera/workspace/Project321/out.txt"));
+   	  
+   	   
+   }
+	 
+	   
+   public static void command(){
+   	   
+   	   
+      Runtime rt = Runtime.getRuntime();
+   	   
+      try{
+         Process pr = rt.exec("cmd /c twurl -X GET /1.1/direct_messages/events/list.json > out.txt");
+         pr.waitFor();
+      }
+      catch(Exception e){
+      	   
+      }
+   }
+}
+
