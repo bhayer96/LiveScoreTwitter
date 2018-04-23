@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class TwitterConnect {
 
    Scanner scan = new Scanner(System.in);
+   LiveScore bot;
 	
    String consumer_key = "vqg9L1A1RLJT5yZ6GH1RHc6Bg";
    String consumer_secret_key = "SUN1VKDhJR8PseynsmywINiVuoJkfcIrefWbdmWhgQJbBLF6v9";
@@ -17,10 +18,12 @@ public class TwitterConnect {
    String owner = "LiveScore321";
    String owner_id = "984128983863365632";
 	
-	public TwitterConnect()
-	{
-	
-	}
+   public TwitterConnect(LiveScore bot)
+   {
+   
+      this.bot = bot;
+   
+   }
 	
    public void buildUserFile(String container) throws Exception{
    	
@@ -42,20 +45,18 @@ public class TwitterConnect {
          String message_text = (String)message_data.get("text");
          String message_sender = (String)message_1_create.get("sender_id"); //sets appropriate JSON Strings
       	
-         System.out.println(message_1_id);
-         System.out.println(message_text);
-         System.out.println(message_sender);
+         // System.out.println(message_1_id);
+         // System.out.println(message_text);
+         // System.out.println(message_sender);
          
-      	String[] buffer = message_text.split(" "); //splits the message by white spaces and gets the first index.
-      	String team = buffer[0]; 
+         String[] buffer = message_text.split(" "); //splits the message by white spaces and gets the first index.
+         String team = buffer[0]; 
       	
-      	
-      	//sends data to Baldeep's code
-      	LiveScore bot = new LiveScore();
-      	bot.storeUserFile(message_sender,team);
-      	
-      	
-      	
+                  	//sends data to Baldeep's code
+      
+         bot.setMessageSender(message_sender);
+         bot.setDesiredTeam(message_text);
+         
       }
       catch(Exception e){
       	
@@ -64,17 +65,15 @@ public class TwitterConnect {
       }
    	
    }
-	
-   public String buildTweet(String url, String excerpt){ //builds tweet that David's code will be sending out
-      String tweet = excerpt.substring(0,150); //cuts off past 150 characters
-      tweet.concat("~~~");
-      tweet.concat(url);
-   	
-   	
+   
+   public String translateUserName(String jsonData)
+   {
+   
+      JSONObject ms = JSONObject.fromObject(jsonData);
       
-      return tweet;
+      return (String)ms.get("screen_name");
+   
    }
-	
 
    
    public static String readURL(String webservice) throws Exception  //reads in urls
