@@ -40,11 +40,26 @@ public class GetData {
 	
 	
    private JFrame frame;
+   public String finalMessage = "";
    public List<Source> slist;
    public List<Articles> alist;
    public List<ResponseData> rlist;
 	
    public List<Articles> showlist;
+   
+   public String getFinalMessage()
+   {
+   
+      return this.finalMessage;
+   
+   }
+   
+   public void setFinalMessage(String finalMessage)
+   {
+   
+      this.finalMessage = finalMessage;
+   
+   }
 
 	/**
 	 * Launch the application.
@@ -56,7 +71,7 @@ public class GetData {
                try {
                
                // there is the entry point of exection
-                  GetData window = new GetData(false,"fox-sports","STATS",1,"583d233722744e44954d03a1f4653c88");
+                  GetData window = new GetData(false,"fox-sports","Guentzel",1,"583d233722744e44954d03a1f4653c88");
                   //window.frame.setVisible(true);
                } catch (Exception e) {
                   e.printStackTrace();
@@ -78,7 +93,7 @@ public class GetData {
    public void setUp(boolean topHeadlines, String newsSource, String desiredContent, int pageNumber, String apiKey)
    {
    
-      System.out.println(buildNewsCall(topHeadlines,newsSource,desiredContent,pageNumber,apiKey));
+      setFinalMessage(buildNewsCall(topHeadlines,newsSource,desiredContent,pageNumber,apiKey));
             
    
    }
@@ -86,7 +101,7 @@ public class GetData {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-   private void initialize() {
+   /*private void initialize() {
       frame = new JFrame();
       frame.setBounds(100, 100, 450, 300);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,14 +116,14 @@ public class GetData {
             // on Button click event  i can user define function 
             // you can change value are link source , Desire content, api ket etc
             
-               System.out.println(buildNewsCall(false,"fox-sports","STATS",1,"583d233722744e44954d03a1f4653c88"));
+               System.out.println(buildNewsCall(false,"fox-sports","Yankees",1,"583d233722744e44954d03a1f4653c88"));
             
             }
          });
       Requestid.setBounds(25, 11, 89, 23);
       frame.getContentPane().add(Requestid);
    }
-   
+   */
    public String buildNewsCall(boolean topHeadlines, String newsSource, String desiredContent, int pageNumber, String apiKey)
    {
       String jsonData,excerpt = "";
@@ -120,7 +135,7 @@ public class GetData {
       {
          headlines = "top-headlines";
       }
-      String url = "https://newsapi.org/v2/"+headlines+"?sources="+newsSource+"&q="+desiredContent+"&page="+pageNumber+"&apiKey="+apiKey+"";
+      String url = "https://newsapi.org/v2/"+headlines+"?sources="+newsSource+"&q="+desiredContent+"&page="+pageNumber+"&sortBy=relevancy&apiKey=" + apiKey+"";
       Client client = ClientBuilder.newClient();
    	
       WebTarget target = client.target(url);
@@ -160,7 +175,7 @@ public class GetData {
                src.name = getSth.get("name").toString();
                src.Id = getSth.get("id").toString();
                slist.add(src);
-               art.Author = project.get("author").toString();
+               //art.Author = project.get("author").toString();
                art.Title = project.get("title").toString();
                art.Description = project.get("description").toString();
                art.Url = project.get("url").toString();
@@ -188,13 +203,25 @@ public class GetData {
         //i assign Main Response list to new list from display 
       showlist.addAll(rlist.get(0).getArtical());
       //here you can show each item from list
-      String finalMessage = showlist.get(0).getAuthor().toString() + "  " + showlist.get(0).getTitle().toString();
+      String finalMessage = // showlist.get(0).getAuthor().toString() + "  " + 
+         showlist.get(0).getTitle().toString();
       //JOptionPane.showMessageDialog(null, finalMessage);
    	
-      //finalMessage = buildTweet(url, finalMessage);
-      
-      return finalMessage + " " + finalUrl;
+      finalMessage = buildTweet(url, finalMessage);
+      return finalMessage;
+      // return finalMessage + " " + finalUrl;
    }
+   
+   public String buildTweet(String url, String excerpt){ //builds tweet that David's code will be sending out
+      String tweet = excerpt.substring(0,150); //cuts off past 150 characters
+      tweet.concat("~~~");
+      tweet.concat(url);
+   	
+   	
+      
+      return tweet;
+   }
+   
 /*
 	
    public String buildNewsCall(boolean topHeadlines, String newsSource, String desiredContent, int pageNumber, String apiKey)
@@ -283,13 +310,5 @@ public class GetData {
       return finalMessage;
    }
 */
-   public String buildTweet(String url, String excerpt){
-      String tweet = excerpt.substring(0,150);
-      tweet.concat("... ");
-      tweet.concat(url);
-   	
-   	
-      return tweet;
-   }
 
 }
