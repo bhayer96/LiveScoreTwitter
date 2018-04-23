@@ -112,7 +112,7 @@ public class CS321_readFile
             {
             
                fileR = new FileReader(file);
-               System.out.println(totalNumOfLines);
+               // System.out.println(totalNumOfLines);
                reader = new BufferedReader(fileR);
                           
                for(int i = 1; i <= totalNumOfLines; i++)
@@ -136,7 +136,7 @@ public class CS321_readFile
                   if(temp != null)
                   {
                   
-
+                  
                   
                   }
                
@@ -170,8 +170,8 @@ public class CS321_readFile
          success = false;
       
       }
-      System.out.println(success);
-      System.out.println(temp);
+      // System.out.println(success);
+      // System.out.println(temp);
       
       return temp;
    
